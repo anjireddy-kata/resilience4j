@@ -1,0 +1,22 @@
+resilience4j:
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 1s
+#        retryExceptions:
+#           - org.springframework.web.reactive.function.client.WebClientResponseException
+#           - org.springframework.web.client.HttpServerErrorException
+#        ignoreExceptions:
+#          - com.techmonks.resilience.retry.exception.DataNotFoundException
+#        resultPredicate: com.techmonks.resilience.retry.predicate.CustomerResultPredicate
+        exceptionPredicate: com.techmonks.resilience.retry.predicate.ExceptionPredicate
+    instances:
+      getCustomerDetailsByCustomerId:
+        baseConfig: default
+        maxAttempts: 4
+        waitDuration: 1s
+#        enableExponentialBackoff: true
+#        exponentialBackoffMultiplier: 2
+        resultPredicate: com.techmonks.resilience.retry.predicate.CustomerResultPredicate
+#        exceptionPredicate: com.techmonks.resilience.retry.predicate.ExceptionPredicate
